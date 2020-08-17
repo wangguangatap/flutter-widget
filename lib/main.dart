@@ -1,84 +1,66 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main(){
-  runApp(Index());
+void main() {
+  runApp(App());
 }
 
-
-class Index extends StatelessWidget{
+class App extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
-    return MaterialApp(
-      title:"MYAPP",
-      home:Scaffold(
-        appBar: AppBar(
-          title:Text("这是标题")
-        ),
-        body:Body()
-      )
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return MaterialApp(title: "MYAPP", home: Home());
+  }
+}
+
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(title: Text("ATAP")),
+      body: null,
+      bottomNavigationBar: BottomNavigationBarDemo(),
     );
   }
 }
 
-
-
-class Body extends StatefulWidget{
-  Body(){
-    print("body的构造函数--");
-  }
+class BottomNavigationBarDemo extends StatefulWidget {
   @override
-  State<StatefulWidget> createState(){
-    print("body的createState--");
-    return BodyState();
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _BottomNavigationBarDemoState();
   }
 }
 
-
-
-class BodyState extends State<Body>{
-  int counter = 0;
-  BodyState(){
-    print("bodyState的构造函数----");
-  }
-
-  void initState(){
-    super.initState();
-    print("bodyState的initState被调用----");
-  }
-
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    print("当依赖被修改时调用----");
-  }
-
-  @override
-  void didUpdateWidget(Body oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-    print("当父组件被修改后调用----");
+class _BottomNavigationBarDemoState extends State<BottomNavigationBarDemo> {
+  int _currentIndexHandler = 0;
+  void _onTapHandler(int index) {
+    setState(() {
+      _currentIndexHandler = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    print("bodyState的build被调用----");
     // TODO: implement build
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children:<Widget> [
-            RaisedButton(
-              child: Text("点击添加"),
-              onPressed: (){
-                setState(() {
-                  counter++;
-                });
-              },
-            ),
-            Text("$counter")
-        ],
-      ),
+    return BottomNavigationBar(
+      ///当BottomNavigationBarItem超过四个时会隐藏，需要修改BottomNavigationBarType才能显示出来
+      type: BottomNavigationBarType.fixed,
+
+      ///当BottomNavigationBarItem的索引值，从0开始
+      currentIndex: _currentIndexHandler,
+      onTap: _onTapHandler,
+      fixedColor: Colors.black,
+      items: [
+        BottomNavigationBarItem(
+            icon: Icon(Icons.explore), title: Text("Explore")),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.history), title: Text("History")),
+        BottomNavigationBarItem(icon: Icon(Icons.list), title: Text("List")),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.my_location), title: Text("My")),
+      ],
     );
   }
 }
