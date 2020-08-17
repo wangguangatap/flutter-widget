@@ -1,83 +1,91 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main(){
-  runApp(Index());
+void main() {
+  runApp(App());
 }
 
-
-class Index extends StatelessWidget{
-  @override
-  Widget build(BuildContext context){
-    return MaterialApp(
-      title:"MYAPP",
-      home:Scaffold(
-        appBar: AppBar(
-          title:Text("这是标题")
-        ),
-        body:Body()
-      )
-    );
-  }
-}
-
-
-
-class Body extends StatefulWidget{
-  Body(){
-    print("body的构造函数--");
-  }
-  @override
-  State<StatefulWidget> createState(){
-    print("body的createState--");
-    return BodyState();
-  }
-}
-
-
-
-class BodyState extends State<Body>{
-  int counter = 0;
-  BodyState(){
-    print("bodyState的构造函数----");
-  }
-
-  void initState(){
-    super.initState();
-    print("bodyState的initState被调用----");
-  }
-
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    print("当依赖被修改时调用----");
-  }
-
-  @override
-  void didUpdateWidget(Body oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-    print("当父组件被修改后调用----");
-  }
-
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print("bodyState的build被调用----");
     // TODO: implement build
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children:<Widget> [
-            RaisedButton(
-              child: Text("点击添加"),
-              onPressed: (){
-                setState(() {
-                  counter++;
-                });
-              },
+    return MaterialApp(title: "MYAPP", home: Home());
+  }
+}
+
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(title: Text("ATAP")),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            /*
+            DrawerHeader(
+              child: Text("menu".toUpperCase()),
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+              ),
             ),
-            Text("$counter")
-        ],
+            */
+            UserAccountsDrawerHeader(
+              accountName: Text("wangguangatp"),
+              accountEmail: Text("guang64142487@163.com"),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    "https://i1.hdslb.com/bfs/face/0cd621a535d99cc5eed5bd9243355c21d64a0e39.jpg@68w_68h.webp"),
+              ),
+              decoration: BoxDecoration(
+                  color: Colors.yellow[400],
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3681705955,4153554780&fm=26&gp=0.jpg"),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                          Colors.yellow[400].withOpacity(0.6),
+                          BlendMode.hardLight))),
+            ),
+            ListTile(
+              title: Text(
+                'Message',
+                textAlign: TextAlign.right,
+              ),
+
+              ///在右边显示，leading在左边显示
+              trailing: Icon(Icons.message, color: Colors.black12, size: 20.0),
+            ),
+            ListTile(
+              title: Text(
+                'Seettings',
+                textAlign: TextAlign.right,
+              ),
+
+              ///在右边显示，leading在左边显示
+              trailing: Icon(Icons.settings, color: Colors.black12, size: 20.0),
+            ),
+            ListTile(
+              title: Text(
+                'Favorite',
+                textAlign: TextAlign.right,
+              ),
+
+              ///在右边显示，leading在左边显示
+              trailing: Icon(Icons.favorite, color: Colors.black12, size: 20.0),
+            ),
+            ListTile(
+              title: Text(
+                'Search',
+                textAlign: TextAlign.right,
+              ),
+
+              ///在右边显示，leading在左边显示
+              trailing: Icon(Icons.search, color: Colors.black12, size: 20.0),
+            )
+          ],
+        ),
       ),
     );
   }
